@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Announcement</title>
+</head>
+<body>
+
+<h1>Edit Announcement</h1>
+
+<form method="POST">
+
+    <label>Title</label><br>
+    <input type="text"
+           name="title"
+           value="{{ announcement.title }}"
+           required><br><br>
+
+    <label>Message</label><br>
+    <textarea name="message" required>{{ announcement.message }}</textarea>
+    <br><br>
+
+    <button type="submit">
+        Update Announcement
+    </button>
+
+</form>
+
+</body>
+</html>

@@ -182,3 +182,89 @@ def total_courses():
     conn.close()
 
     return total
+
+# ==============================
+# Add Announcement
+# ==============================
+
+def add_announcement(title, photo, message):
+
+    conn = get_connection()
+
+    conn.execute("""
+    INSERT INTO announcement
+    (title, photo, message)
+    VALUES (?, ?, ?)
+    """, (title, photo, message))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Get All Announcements
+# ==============================
+
+def get_all_announcements():
+
+    conn = get_connection()
+
+    announcements = conn.execute("""
+    SELECT *
+    FROM announcement
+    ORDER BY id ASC
+    """).fetchall()
+
+    conn.close()
+
+    return announcements
+
+# ==============================
+# Get One Announcement
+# ==============================
+
+def get_announcement(id):
+
+    conn = get_connection()
+
+    announcement = conn.execute("""
+    SELECT *
+    FROM announcement
+    WHERE id = ?
+    """, (id,)).fetchone()
+
+    conn.close()
+
+    return announcement
+
+# ==============================
+# Delete Announcement
+# ==============================
+
+def delete_announcement(id):
+
+    conn = get_connection()
+
+    conn.execute("""
+    DELETE FROM announcement
+    WHERE id = ?
+    """, (id,))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Update Announcement
+# ==============================
+
+def update_announcement(id, title, message):
+
+    conn = get_connection()
+
+    conn.execute("""
+    UPDATE announcement
+    SET title = ?, message = ?
+    WHERE id = ?
+    """, (title, message, id))
+
+    conn.commit()
+    conn.close()

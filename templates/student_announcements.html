@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Announcements</title>
+</head>
+<body>
+
+<h1>School Announcements</h1>
+
+<a href="/student/dashboard">Back</a>
+
+<hr>
+
+{% for announcement in announcements %}
+
+<div>
+
+    <h2>{{ announcement.title }}</h2>
+
+    {% if announcement.photo %}
+    <img src="{{ url_for('static',
+    filename='uploads/announcements/' + announcement.photo) }}"
+    width="300">
+    {% endif %}
+
+    <p>{{ announcement.message }}</p>
+
+</div>
+
+<hr>
+
+{% endfor %}
+
+</body>
+</html>

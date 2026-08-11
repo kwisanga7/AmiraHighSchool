@@ -3,14 +3,24 @@ from database import (
     login_user,
     total_students,
     total_announcements,
-    total_courses
+    total_courses,
+    add_announcement,
+    get_all_announcements,
+    get_announcement,
+    delete_announcement,
+    update_announcement
 )
+
+import os
+from werkzeug.utils import secure_filename
 
 from flask import Flask, render_template, request, redirect, session
 from database import register_student, login_user
 
 app = Flask(__name__)
 app.secret_key = "amira_high_school_secret_key"
+UPLOAD_FOLDER = "static/uploads/announcements"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # ===========================
 # Home Route
@@ -143,6 +153,138 @@ def logout():
     session.clear()
 
     return redirect("/login")
+
+# ===========================
+# Add Announcement Route
+# ===========================
+
+@app.route("/admin/announcements/add", methods=["GET", "POST"])
+def add_announcement_page():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if session["login_type"] != "admin":
+        return "Access Denied"
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        message = request.form["message"]
+
+        image = request.files["photo"]
+
+        filename = ""
+
+        if image and image.filename:
+
+            filename = secure_filename(image.filename)
+
+            image.save(
+                os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    filename
+                )
+            )
+
+        add_announcement(
+            title,
+            filename,
+            message
+        )
+
+        return redirect("/admin/announcements")
+
+    return render_template("add_announcement.html")
+
+
+# ==========================
+# View Announcements Route
+# ==========================
+
+@app.route("/admin/announcements")
+def announcements():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if session["login_type"] != "admin":
+        return "Access Denied"
+
+    announcements = get_all_announcements()
+
+    return render_template(
+        "announcements.html",
+        announcements=announcements
+    )
+
+# ==========================
+# Edite Announcement Route
+# ==========================
+
+@app.route("/admin/announcements/edit/<int:id>",
+           methods=["GET", "POST"])
+def edit_announcement(id):
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if session["login_type"] != "admin":
+        return "Access Denied"
+
+    announcement = get_announcement(id)
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        message = request.form["message"]
+
+        update_announcement(
+            id,
+            title,
+            message
+        )
+
+        return redirect("/admin/announcements")
+
+    return render_template(
+        "edit_announcement.html",
+        announcement=announcement
+    )
+
+# ==========================
+# Delete Announcement Route
+# ==========================
+
+@app.route("/admin/announcements/delete/<int:id>")
+def delete_announcement_page(id):
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if session["login_type"] != "admin":
+        return "Access Denied"
+
+    delete_announcement(id)
+
+    return redirect("/admin/announcements")
+
+# ==========================
+# Student View Announcements Route
+# ==========================
+
+@app.route("/student/announcements")
+def student_announcements():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    announcements = get_all_announcements()
+
+    return render_template(
+        "student_announcements.html",
+        announcements=announcements
+    )
 
 
 if __name__ == "__main__":
