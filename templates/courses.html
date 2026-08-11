@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Courses</title>
+</head>
+<body>
+
+<h1>Courses</h1>
+
+<a href="/admin/courses/add">
+    Add New Course
+</a>
+
+<hr>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Course</th>
+    <th>Duration</th>
+    <th>Teacher</th>
+    <th>Fees</th>
+    <th>Photo</th>
+    <th>Actions</th>
+</tr>
+
+{% for course in courses %}
+
+<tr>
+
+<td>{{ course.course_id }}</td>
+
+<td>{{ course.course_name }}</td>
+
+<td>{{ course.duration }}</td>
+
+<td>{{ course.teacher }}</td>
+
+<td>{{ course.fees }}</td>
+
+<td>
+
+{% if course.photo %}
+<img src="{{ url_for('static',
+filename='uploads/courses/' + course.photo) }}"
+width="100">
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/admin/courses/edit/{{ course.course_id }}">
+Edit
+</a>
+
+|
+
+<a href="/admin/courses/delete/{{ course.course_id }}"
+onclick="return confirm('Delete this course?')">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

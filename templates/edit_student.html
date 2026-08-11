@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+</head>
+<body>
+
+<h1>Edit Student</h1>
+
+<form method="POST">
+
+    <label>Full Name</label><br>
+    <input type="text"
+           name="full_name"
+           value="{{ student.full_name }}"
+           required><br><br>
+
+    <label>Age</label><br>
+    <input type="number"
+           name="age"
+           value="{{ student.age }}"
+           required><br><br>
+
+    <label>Sector</label><br>
+    <input type="text"
+           name="sector"
+           value="{{ student.sector }}"
+           required><br><br>
+
+    <label>Date of Birth</label><br>
+    <input type="date"
+           name="date_of_birth"
+           value="{{ student.date_of_birth }}"
+           required><br><br>
+
+    <label>Phone</label><br>
+    <input type="text"
+           name="phone"
+           value="{{ student.phone }}"
+           required><br><br>
+
+    <button type="submit">
+        Update Student
+    </button>
+
+</form>
+
+</body>
+</html>

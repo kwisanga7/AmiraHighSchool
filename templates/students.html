@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+
+<h1>Registered Students</h1>
+
+<a href="/admin/dashboard">
+    Back to Dashboard
+</a>
+
+<hr>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Student ID</th>
+    <th>Full Name</th>
+    <th>Age</th>
+    <th>Sector</th>
+    <th>Phone</th>
+    <th>Actions</th>
+</tr>
+
+{% for student in students %}
+
+<tr>
+
+<td>{{ student.id }}</td>
+
+<td>{{ student.student_id }}</td>
+
+<td>{{ student.full_name }}</td>
+
+<td>{{ student.age }}</td>
+
+<td>{{ student.sector }}</td>
+
+<td>{{ student.phone }}</td>
+
+<td>
+
+<a href="/admin/students/edit/{{ student.id }}">
+    Edit
+</a>
+
+|
+
+<a href="/admin/students/delete/{{ student.id }}"
+onclick="return confirm('Delete this student?')">
+    Delete
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

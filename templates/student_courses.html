@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Courses</title>
+</head>
+<body>
+
+<h1>Available Courses</h1>
+
+<a href="/student/dashboard">
+    Back to Dashboard
+</a>
+
+<hr>
+
+{% for course in courses %}
+
+<div style="
+border:1px solid gray;
+padding:15px;
+margin-bottom:20px;
+width:400px;
+">
+
+    {% if course.photo %}
+
+    <img
+    src="{{ url_for('static',
+    filename='uploads/courses/' + course.photo) }}"
+    width="250">
+
+    <br><br>
+
+    {% endif %}
+
+    <h2>{{ course.course_name }}</h2>
+
+    <p>
+        <strong>Teacher:</strong>
+        {{ course.teacher }}
+    </p>
+
+    <p>
+        <strong>Duration:</strong>
+        {{ course.duration }}
+    </p>
+
+    <p>
+        <strong>Fees:</strong>
+        {{ course.fees }}
+    </p>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

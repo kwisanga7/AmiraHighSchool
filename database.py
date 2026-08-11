@@ -268,3 +268,211 @@ def update_announcement(id, title, message):
 
     conn.commit()
     conn.close()
+
+# ==============================
+# Add Course
+# ==============================
+
+def add_course(
+        course_name,
+        duration,
+        teacher,
+        fees,
+        photo):
+
+    conn = get_connection()
+
+    conn.execute("""
+    INSERT INTO courses
+    (
+        course_name,
+        duration,
+        teacher,
+        fees,
+        photo
+    )
+    VALUES (?, ?, ?, ?, ?)
+    """,
+    (
+        course_name,
+        duration,
+        teacher,
+        fees,
+        photo
+    ))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Get All Courses
+# ==============================
+
+def get_all_courses():
+
+    conn = get_connection()
+
+    courses = conn.execute("""
+    SELECT *
+    FROM courses
+    ORDER BY course_id ASC
+    """).fetchall()
+
+    conn.close()
+
+    return courses
+# ==============================
+# Get One Course
+# ==============================
+
+def get_course(course_id):
+
+    conn = get_connection()
+
+    course = conn.execute("""
+    SELECT *
+    FROM courses
+    WHERE course_id = ?
+    """, (course_id,)).fetchone()
+
+    conn.close()
+
+    return course
+
+# ==============================
+# Update Course
+# ==============================
+
+def update_course(
+        course_id,
+        course_name,
+        duration,
+        teacher,
+        fees):
+
+    conn = get_connection()
+
+    conn.execute("""
+    UPDATE courses
+    SET
+        course_name = ?,
+        duration = ?,
+        teacher = ?,
+        fees = ?
+    WHERE course_id = ?
+    """,
+    (
+        course_name,
+        duration,
+        teacher,
+        fees,
+        course_id
+    ))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Delete Course
+# ==============================
+
+def delete_course(course_id):
+
+    conn = get_connection()
+
+    conn.execute("""
+    DELETE FROM courses
+    WHERE course_id = ?
+    """, (course_id,))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Get All Students
+# ==============================
+
+def get_all_students():
+
+    conn = get_connection()
+
+    students = conn.execute("""
+    SELECT *
+    FROM registration
+    WHERE login_type = 'student'
+    ORDER BY id ASC
+    """).fetchall()
+
+    conn.close()
+
+    return students
+
+# ==============================
+# Get One Student
+# ==============================
+
+def get_student(id):
+
+    conn = get_connection()
+
+    student = conn.execute("""
+    SELECT *
+    FROM registration
+    WHERE id = ?
+    """, (id,)).fetchone()
+
+    conn.close()
+
+    return student
+
+# ==============================
+# Update Student
+# ==============================
+
+def update_student(
+        id,
+        full_name,
+        age,
+        sector,
+        date_of_birth,
+        phone):
+
+    conn = get_connection()
+
+    conn.execute("""
+    UPDATE registration
+    SET
+        full_name = ?,
+        age = ?,
+        sector = ?,
+        date_of_birth = ?,
+        phone = ?
+    WHERE id = ?
+    """,
+    (
+        full_name,
+        age,
+        sector,
+        date_of_birth,
+        phone,
+        id
+    ))
+
+    conn.commit()
+    conn.close()
+
+# ==============================
+# Delete Student
+# ==============================
+
+def delete_student(id):
+
+    conn = get_connection()
+
+    conn.execute("""
+    DELETE FROM registration
+    WHERE id = ?
+    """, (id,))
+
+    conn.commit()
+    conn.close()
