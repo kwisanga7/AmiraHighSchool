@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+    <h1>Amira High School Admin Dashboard</h1>
+
+    <p>Welcome {{ session.full_name }}</p>
+
+    <hr>
+
+    <h2>System Statistics</h2>
+
+    <p>Total Students: {{ students }}</p>
+
+    <p>Total Announcements: {{ announcements }}</p>
+
+    <p>Total Courses: {{ courses }}</p>
+
+    <hr>
+
+    <h2>Management Menu</h2>
+
+    <ul>
+        <li><a href="#">Manage Students</a></li>
+        <li><a href="#">Manage Announcements</a></li>
+        <li><a href="#">Manage Courses</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+
+</body>
+</html>

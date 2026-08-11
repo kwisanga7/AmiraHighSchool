@@ -136,3 +136,49 @@ def get_courses():
     conn.close()
 
     return courses
+
+# ==============================
+# Dashboard Statistics
+# ==============================
+
+def total_students():
+
+    conn = get_connection()
+
+    total = conn.execute("""
+    SELECT COUNT(*)
+    FROM registration
+    WHERE login_type='student'
+    """).fetchone()[0]
+
+    conn.close()
+
+    return total
+
+
+def total_announcements():
+
+    conn = get_connection()
+
+    total = conn.execute("""
+    SELECT COUNT(*)
+    FROM announcement
+    """).fetchone()[0]
+
+    conn.close()
+
+    return total
+
+
+def total_courses():
+
+    conn = get_connection()
+
+    total = conn.execute("""
+    SELECT COUNT(*)
+    FROM courses
+    """).fetchone()[0]
+
+    conn.close()
+
+    return total
