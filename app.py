@@ -23,7 +23,7 @@ from database import (
 import os
 from werkzeug.utils import secure_filename
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from database import register_student, login_user
 
 app = Flask(__name__)
@@ -77,11 +77,9 @@ def register():
             password
         )
 
-        return f"""
-        Registration Successful!<br><br>
-        Your Student ID is: <b>{student_id}</b><br><br>
-        <a href='/register'>Register Another Student</a>
-        """
+        flash(f"Registration Successful! Your Student ID is {student_id}")
+
+        return redirect("/login")
 
     return render_template("register.html")
 
@@ -111,7 +109,9 @@ def login():
 
             return redirect("/student/dashboard")
 
-        return "Invalid phone number or password"
+        flash("Invalid phone number or password")
+ 
+        return redirect("/login")
 
     return render_template("login.html")
 
@@ -166,6 +166,8 @@ def logout():
 
     session.clear()
 
+    flash("Logged out successfully")
+
     return redirect("/login")
 
 # ===========================
@@ -206,11 +208,11 @@ def add_announcement_page():
             filename,
             message
         )
-
+        flash("Announcement added successfully")
         return redirect("/admin/announcements")
+    
 
     return render_template("add_announcement.html")
-
 
 # ==========================
 # View Announcements Route
@@ -258,7 +260,7 @@ def edit_announcement(id):
             title,
             message
         )
-
+        flash("Announcement updated successfully")
         return redirect("/admin/announcements")
 
     return render_template(
@@ -280,7 +282,7 @@ def delete_announcement_page(id):
         return "Access Denied"
 
     delete_announcement(id)
-
+    flash("Announcement deleted successfully")
     return redirect("/admin/announcements")
 
 # ==========================
@@ -345,7 +347,7 @@ def add_course_page():
             fees,
             filename
         )
-
+        flash("Course added successfully")
         return redirect("/admin/courses")
 
     return render_template("add_course.html")
@@ -395,7 +397,7 @@ def edit_course_page(course_id):
             request.form["teacher"],
             request.form["fees"]
         )
-
+        flash("Course updated successfully")
         return redirect("/admin/courses")
 
     return render_template(
@@ -418,6 +420,7 @@ def delete_course_page(course_id):
 
     delete_course(course_id)
 
+    flash("Course deleted successfully")
     return redirect("/admin/courses")
 
 # =========================
@@ -486,7 +489,7 @@ def edit_student_page(id):
             request.form["date_of_birth"],
             request.form["phone"]
         )
-
+        flash("Student updated successfully")
         return redirect("/admin/students")
 
     return render_template(
@@ -508,7 +511,7 @@ def delete_student_page(id):
         return "Access Denied"
 
     delete_student(id)
-
+    flash("Student deleted successfully")
     return redirect("/admin/students")
 
 
