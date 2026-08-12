@@ -105,14 +105,14 @@ def login_user(phone, password):
 # Get all announcements
 # ==============================
 
-def get_announcements():
+def get_all_announcements():
 
     conn = get_connection()
 
     announcements = conn.execute("""
     SELECT *
     FROM announcement
-    ORDER BY id DESC
+    ORDER BY id ASC
     """).fetchall()
 
     conn.close()

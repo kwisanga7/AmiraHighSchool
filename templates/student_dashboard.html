@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Student Dashboard</h1>
+{% block title %}
+Student Dashboard
+{% endblock %}
 
-    <p>Welcome {{ session.full_name }}</p>
+{% block content %}
 
-    <hr>
+<h1>Student Dashboard</h1>
 
-    <ul>
-        <li><a href="/student/announcements">Announcements</a></li>
-        <li><a href="/student/courses">Courses</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
+<p>Welcome {{ session.full_name }}</p>
 
-</body>
-</html>
+<div class="card">
+    <h3>Announcements</h3>
+    <p>View latest school announcements.</p>
+</div>
+
+<div class="card">
+    <h3>Courses</h3>
+    <p>Browse available courses.</p>
+</div>
+
+{% endblock %}

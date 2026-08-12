@@ -8,10 +8,7 @@ from database import (
     get_all_announcements,
     get_announcement,
     delete_announcement,
-    update_announcement
-)
-
-from database import (
+    update_announcement,
     add_course,
     get_all_courses,
     get_course,
@@ -45,13 +42,14 @@ app.config["COURSE_UPLOAD_FOLDER"] = COURSE_UPLOAD_FOLDER
 @app.route("/")
 def home():
 
-    return """
-    <h1>Welcome to Amira High School</h1>
+    announcements = get_all_announcements()
+    courses = get_all_courses()
 
-    <a href='/register'>Register</a><br><br>
-
-    <a href='/login'>Login</a>
-    """
+    return render_template(
+        "home.html",
+        announcements=announcements,
+        courses=courses
+    )
 
 
 # ===========================
@@ -512,6 +510,7 @@ def delete_student_page(id):
     delete_student(id)
 
     return redirect("/admin/students")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

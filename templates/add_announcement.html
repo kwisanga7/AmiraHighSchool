@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Announcement</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Add Announcement</h1>
+{% block title %}
+Add Announcement
+{% endblock %}
 
+{% block content %}
+
+<div class="form-container">
 <form method="POST" enctype="multipart/form-data">
 
     <label>Title</label><br>
@@ -23,6 +23,5 @@
     </button>
 
 </form>
-
-</body>
-</html>
+</div>
+{% endblock %}

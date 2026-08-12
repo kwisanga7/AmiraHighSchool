@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Registration</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Amira High School Registration</h1>
+{% block title %}
+Register
+{% endblock %}
 
+{% block content %}
+
+<div class="form-container">
     <form method="POST">
 
         <label>Full Name</label><br>
@@ -30,6 +30,6 @@
         <button type="submit">Register</button>
 
     </form>
+</div>
 
-</body>
-</html>
+{% endblock %}

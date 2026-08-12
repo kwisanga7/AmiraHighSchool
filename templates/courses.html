@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Courses</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Courses</h1>
+{% block title %}
+Add Course
+{% endblock %}
+
+{% block content %}
 
 <a href="/admin/courses/add">
     Add New Course
@@ -70,5 +69,4 @@ Delete
 
 </table>
 
-</body>
-</html>
+{% endblock %}

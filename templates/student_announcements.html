@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Announcements</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>School Announcements</h1>
+{% block title %}
+School Announcements
+{% endblock %}
+
+{% block content %}
 
 <a href="/student/dashboard">Back</a>
 
@@ -31,5 +30,4 @@
 
 {% endfor %}
 
-</body>
-</html>
+{% endblock %}

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Announcements</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Announcements</h1>
+{% block title %}
+Announcement
+{% endblock %}
+
+{% block content %}
 
 <a href="/admin/announcements/add">
     Add New Announcement
@@ -60,5 +59,4 @@
 
 </table>
 
-</body>
-</html>
+{% endblock %}

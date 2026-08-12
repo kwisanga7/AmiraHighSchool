@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}
+Amira High School
+{% endblock %}
+
+{% block content %}
+
+
+<div class="hero">
+
+    <h1>Welcome to Amira High School</h1>
+
+    <p>
+        Building future leaders through quality education and innovation.
+    </p>
+
+    <a href="/register" class="btn">Register</a>
+    <a href="/login" class="btn">Login</a>
+
+</div>
+
+<hr>
+
+<hr>
+
+<h2>Latest Announcements</h2>
+
+{% for announcement in announcements %}
+
+<div class="card">
+
+    <h3>{{ announcement.title }}</h3>
+
+    {% if announcement.photo %}
+    <img
+    src="{{ url_for('static',
+    filename='uploads/announcements/' + announcement.photo) }}"
+    width="300">
+    {% endif %}
+
+    <p>{{ announcement.message }}</p>
+
+</div>
+
+{% endfor %}
+
+<hr>
+
+<h2>Available Courses</h2>
+
+{% for course in courses %}
+
+<div class="card">
+
+    {% if course.photo %}
+    <img
+    src="{{ url_for('static',
+    filename='uploads/courses/' + course.photo) }}"
+    width="250">
+    {% endif %}
+
+    <h3>{{ course.course_name }}</h3>
+
+    <p><strong>Teacher:</strong> {{ course.teacher }}</p>
+
+    <p><strong>Duration:</strong> {{ course.duration }}</p>
+
+    <p><strong>Fees:</strong> {{ course.fees }}</p>
+
+</div>
+<h2>About Amira High School</h2>
+
+<div class="card">
+
+    <p>
+        Amira High School is committed to providing quality education,
+        empowering students with knowledge, skills, and values that prepare
+        them for future success.
+    </p>
+
+</div>
+
+<h2>Latest Announcements</h2>
+
+<div class="cards-grid">
+
+{% for announcement in announcements %}
+
+<div class="card">
+
+    <h3>{{ announcement.title }}</h3>
+
+    {% if announcement.photo %}
+    <img src="{{ url_for('static',
+    filename='uploads/announcements/' + announcement.photo) }}"
+    width="100%">
+    {% endif %}
+
+    <p>{{ announcement.message }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<h2>Available Courses</h2>
+
+<div class="cards-grid">
+
+{% for course in courses %}
+
+<div class="card">
+
+    {% if course.photo %}
+    <img src="{{ url_for('static',
+    filename='uploads/courses/' + course.photo) }}"
+    width="100%">
+    {% endif %}
+
+    <h3>{{ course.course_name }}</h3>
+
+    <p><strong>Teacher:</strong> {{ course.teacher }}</p>
+
+    <p><strong>Duration:</strong> {{ course.duration }}</p>
+
+    <p><strong>Fees:</strong> {{ course.fees }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<hr>
+
+<h2>Contact Us</h2>
+
+<div class="card">
+
+    <p>Email: info@amirahighschool.rw</p>
+
+    <p>Phone: +250 788 000 000</p>
+
+    <p>Location: Kigali, Rwanda</p>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

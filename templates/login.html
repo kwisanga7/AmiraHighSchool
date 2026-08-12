@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Amira High School Login</h1>
+{% block title %}
+Login
+{% endblock %}
 
+{% block content %}
+
+<div class="form-container">
     <form method="POST">
 
         <label>Phone Number</label><br>
@@ -18,6 +18,6 @@
         <button type="submit">Login</button>
 
     </form>
+</div>
 
-</body>
-</html>
+{% endblock %}

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Course</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Add Course</h1>
+{% block title %}
+Add Course
+{% endblock %}
 
+{% block content %}
+
+<div class="form-container">
 <form method="POST"
       enctype="multipart/form-data">
 
@@ -39,6 +39,6 @@
     </button>
 
 </form>
+</div>
 
-</body>
-</html>
+{% endblock %}

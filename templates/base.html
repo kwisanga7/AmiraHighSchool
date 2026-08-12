@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Amira High School{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+
+        <h2>Amira High School</h2>
+
+        {% if session.get("login_type") == "admin" %}
+
+            <a href="/admin/dashboard" class="btn">Dashboard</a>
+            <a href="/admin/students" class="btn">Students</a>
+            <a href="/admin/announcements" class="btn">Announcements</a>
+            <a href="/admin/courses" class="btn">Courses</a>
+            <a href="/logout" class="btn">Logout</a>
+
+        {% elif session.get("login_type") == "student" %}
+
+            <a href="/student/dashboard" class="btn">Dashboard</a>
+            <a href="/student/announcements" class="btn">Announcements</a>
+            <a href="/student/courses" class="btn">Courses</a>
+            <a href="/logout" class="btn">Logout</a>
+
+        {% else %}
+
+            <a href="/" class="btn">Home</a>
+            <a href="/register" class="btn">Register</a>
+            <a href="/login" class="btn">Login</a>
+
+        {% endif %}
+
+    </nav>
+
+    <div class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+ <footer>
+
+    <p>
+        © 2026 Amira High School Management System
+    </p>
+
+</footer>
+
+</body>
+</html>

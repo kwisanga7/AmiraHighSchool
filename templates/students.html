@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Students</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Registered Students</h1>
+{% block title %}
+Register Student
+{% endblock %}
+
+{% block content %}
 
 <a href="/admin/dashboard">
     Back to Dashboard
@@ -62,5 +61,4 @@ onclick="return confirm('Delete this student?')">
 
 </table>
 
-</body>
-</html>
+{% endblock %}

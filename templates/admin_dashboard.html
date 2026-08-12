@@ -1,34 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Amira High School Admin Dashboard</h1>
+{% block title %}
+Admin Dashboard
+{% endblock %}
 
-    <p>Welcome {{ session.full_name }}</p>
+{% block content %}
 
-    <hr>
+<div class="dashboard-cards">
 
-    <h2>System Statistics</h2>
+    <div class="card">
+        <h2>Students</h2>
+        <h3>{{ students }}</h3>
+    </div>
 
-    <p>Total Students: {{ students }}</p>
+    <div class="card">
+        <h2>Announcements</h2>
+        <h3>{{ announcements }}</h3>
+    </div>
 
-    <p>Total Announcements: {{ announcements }}</p>
+    <div class="card">
+        <h2>Courses</h2>
+        <h3>{{ courses }}</h3>
+    </div>
 
-    <p>Total Courses: {{ courses }}</p>
+</div>
 
-    <hr>
-
-    <h2>Management Menu</h2>
-
-    <ul>
-        <li><a href="/admin/students">Manage Students</a></li>
-        <li><a href="/admin/announcements">Manage Announcements</a></li>
-        <li><a href="/admin/courses">Manage Courses</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
-
-</body>
-</html>
+{% endblock %}

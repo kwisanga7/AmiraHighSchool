@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Course</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Edit Course</h1>
+{% block title %}
+Edit Course
+{% endblock %}
 
+{% block content %}
+
+<div class="form-container">
     <form method="POST">
 
         <label>Course Name</label><br>
@@ -46,6 +46,7 @@
         </button>
 
     </form>
+</div>
 
     <br>
 
@@ -53,5 +54,4 @@
         Back to Courses
     </a>
 
-</body>
-</html>
+{% endblock %}
