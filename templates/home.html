@@ -6,6 +6,7 @@ Amira High School
 
 {% block content %}
 
+<!-- Hero Section -->
 
 <div class="hero">
 
@@ -20,55 +21,37 @@ Amira High School
 
 </div>
 
-<hr>
+<!-- Search Section -->
 
-<hr>
+<div class="public-search">
 
-<h2>Latest Announcements</h2>
+    <h2>Search Amira High School</h2>
 
-{% for announcement in announcements %}
+    <form method="GET" action="/">
 
-<div class="card">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search courses, announcements..."
+            value="{{ search }}"
+        >
 
-    <h3>{{ announcement.title }}</h3>
+        <button type="submit">
+            Search
+        </button>
 
-    {% if announcement.photo %}
-    <img
-    src="{{ url_for('static',
-    filename='uploads/announcements/' + announcement.photo) }}"
-    width="300">
-    {% endif %}
+        {% if search %}
+            <a href="/" class="clear-search">
+                Clear
+            </a>
+        {% endif %}
 
-    <p>{{ announcement.message }}</p>
-
-</div>
-
-{% endfor %}
-
-<hr>
-
-<h2>Available Courses</h2>
-
-{% for course in courses %}
-
-<div class="card">
-
-    {% if course.photo %}
-    <img
-    src="{{ url_for('static',
-    filename='uploads/courses/' + course.photo) }}"
-    width="250">
-    {% endif %}
-
-    <h3>{{ course.course_name }}</h3>
-
-    <p><strong>Teacher:</strong> {{ course.teacher }}</p>
-
-    <p><strong>Duration:</strong> {{ course.duration }}</p>
-
-    <p><strong>Fees:</strong> {{ course.fees }}</p>
+    </form>
 
 </div>
+
+<!-- About School -->
+
 <h2>About Amira High School</h2>
 
 <div class="card">
@@ -81,59 +64,106 @@ Amira High School
 
 </div>
 
-<h2>Latest Announcements</h2>
+<hr>
+
+<!-- Announcements Section -->
+
+{% if search %}
+    <h2>Announcement Search Results</h2>
+{% else %}
+    <h2>Latest Announcements</h2>
+{% endif %}
 
 <div class="cards-grid">
 
 {% for announcement in announcements %}
 
-<div class="card">
+    <div class="card">
 
-    <h3>{{ announcement.title }}</h3>
+        <h3>{{ announcement.title }}</h3>
 
-    {% if announcement.photo %}
-    <img src="{{ url_for('static',
-    filename='uploads/announcements/' + announcement.photo) }}"
-    width="100%">
+        {% if announcement.photo %}
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='uploads/announcements/' + announcement.photo
+                ) }}"
+                width="100%"
+            >
+        {% endif %}
+
+        <p>{{ announcement.message }}</p>
+
+    </div>
+
+{% else %}
+
+    {% if search %}
+        <p>No announcements found for "{{ search }}".</p>
     {% endif %}
-
-    <p>{{ announcement.message }}</p>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-<h2>Available Courses</h2>
-
-<div class="cards-grid">
-
-{% for course in courses %}
-
-<div class="card">
-
-    {% if course.photo %}
-    <img src="{{ url_for('static',
-    filename='uploads/courses/' + course.photo) }}"
-    width="100%">
-    {% endif %}
-
-    <h3>{{ course.course_name }}</h3>
-
-    <p><strong>Teacher:</strong> {{ course.teacher }}</p>
-
-    <p><strong>Duration:</strong> {{ course.duration }}</p>
-
-    <p><strong>Fees:</strong> {{ course.fees }}</p>
-
-</div>
 
 {% endfor %}
 
 </div>
 
 <hr>
+
+<!-- Courses Section -->
+
+{% if search %}
+    <h2>Course Search Results</h2>
+{% else %}
+    <h2>Available Courses</h2>
+{% endif %}
+
+<div class="cards-grid">
+
+{% for course in courses %}
+
+    <div class="card">
+
+        {% if course.photo %}
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='uploads/courses/' + course.photo
+                ) }}"
+                width="100%"
+            >
+        {% endif %}
+
+        <h3>{{ course.course_name }}</h3>
+
+        <p>
+            <strong>Teacher:</strong>
+            {{ course.teacher }}
+        </p>
+
+        <p>
+            <strong>Duration:</strong>
+            {{ course.duration }}
+        </p>
+
+        <p>
+            <strong>Fees:</strong>
+            {{ course.fees }}
+        </p>
+
+    </div>
+
+{% else %}
+
+    {% if search %}
+        <p>No courses found for "{{ search }}".</p>
+    {% endif %}
+
+{% endfor %}
+
+</div>
+
+<hr>
+
+<!-- Contact Section -->
 
 <h2>Contact Us</h2>
 
@@ -146,7 +176,5 @@ Amira High School
     <p>Location: Kigali, Rwanda</p>
 
 </div>
-
-{% endfor %}
 
 {% endblock %}

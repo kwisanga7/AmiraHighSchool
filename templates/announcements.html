@@ -10,6 +10,31 @@ Announcement
     Add New Announcement
 </a>
 
+<div class="search-container">
+
+    <form method="GET" action="/admin/announcements">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by title or message..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+        {% if search %}
+            <a href="/admin/announcements" class="btn">
+                Clear
+            </a>
+        {% endif %}
+
+    </form>
+
+</div>
+
 <hr>
 
 <table border="1">

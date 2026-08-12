@@ -17,7 +17,11 @@ from database import (
     get_all_students,
     get_student,
     update_student,
-    delete_student
+    delete_student,
+    search_students,
+    search_courses,
+    search_announcements,
+    search_public_content
 )
 
 import os
@@ -42,13 +46,22 @@ app.config["COURSE_UPLOAD_FOLDER"] = COURSE_UPLOAD_FOLDER
 @app.route("/")
 def home():
 
-    announcements = get_all_announcements()
-    courses = get_all_courses()
+    search = request.args.get("search", "").strip()
+
+    if search:
+
+        announcements, courses = search_public_content(search)
+
+    else:
+
+        announcements = get_all_announcements()
+        courses = get_all_courses()
 
     return render_template(
         "home.html",
         announcements=announcements,
-        courses=courses
+        courses=courses,
+        search=search
     )
 
 
@@ -227,11 +240,17 @@ def announcements():
     if session["login_type"] != "admin":
         return "Access Denied"
 
-    announcements = get_all_announcements()
+    search = request.args.get("search", "").strip()
+
+    if search:
+        announcements = search_announcements(search)
+    else:
+        announcements = get_all_announcements()
 
     return render_template(
         "announcements.html",
-        announcements=announcements
+        announcements=announcements,
+        search=search
     )
 
 # ==========================
@@ -365,13 +384,18 @@ def courses():
     if session["login_type"] != "admin":
         return "Access Denied"
 
-    courses = get_all_courses()
+    search = request.args.get("search", "").strip()
+
+    if search:
+        courses = search_courses(search)
+    else:
+        courses = get_all_courses()
 
     return render_template(
         "courses.html",
-        courses=courses
+        courses=courses,
+        search=search
     )
-
 # =========================
 # Edit Course Route
 # =========================
@@ -456,11 +480,17 @@ def students():
     if session["login_type"] != "admin":
         return "Access Denied"
 
-    students = get_all_students()
+    search = request.args.get("search", "").strip()
+
+    if search:
+        students = search_students(search)
+    else:
+        students = get_all_students()
 
     return render_template(
         "students.html",
-        students=students
+        students=students,
+        search=search
     )
 
 # =========================

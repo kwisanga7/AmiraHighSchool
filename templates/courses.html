@@ -10,6 +10,30 @@ Add Course
     Add New Course
 </a>
 
+<div class="search-container">
+
+    <form method="GET" action="/admin/courses">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by course name, teacher or duration..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+        {% if search %}
+            <a href="/admin/courses" class="btn">
+                Clear
+            </a>
+        {% endif %}
+
+    </form>
+
+</div>
 <hr>
 
 <table border="1">

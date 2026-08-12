@@ -496,3 +496,119 @@ def delete_student(id):
 
     conn.commit()
     conn.close()
+
+# =============================
+# Search Students
+# =============================
+
+def search_students(search):
+
+    conn = get_connection()
+
+    students = conn.execute("""
+        SELECT *
+        FROM registration
+        WHERE login_type = 'student'
+        AND (
+            student_id LIKE ?
+            OR full_name LIKE ?
+            OR phone LIKE ?
+        )
+        ORDER BY id ASC
+    """, (
+        f"%{search}%",
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    conn.close()
+
+    return students
+
+# ==============================
+# Search Courses
+# ==============================
+
+def search_courses(search):
+
+    conn = get_connection()
+
+    courses = conn.execute("""
+        SELECT *
+        FROM courses
+        WHERE course_name LIKE ?
+        OR teacher LIKE ?
+        OR duration LIKE ?
+        ORDER BY course_id ASC
+    """, (
+        f"%{search}%",
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    conn.close()
+
+    return courses
+
+# ==============================
+# Search Announcements
+# ==============================
+
+def search_announcements(search):
+
+    conn = get_connection()
+
+    announcements = conn.execute("""
+        SELECT *
+        FROM announcement
+        WHERE title LIKE ?
+        OR message LIKE ?
+        ORDER BY id ASC
+    """, (
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    conn.close()
+
+    return announcements
+
+# ==============================
+# Search Public Content
+# ==============================
+
+def search_public_content(search):
+
+    conn = get_connection()
+
+    # Search announcements
+    announcements = conn.execute("""
+        SELECT *
+        FROM announcement
+        WHERE title LIKE ?
+        OR message LIKE ?
+        ORDER BY id ASC
+    """, (
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    # Search courses
+    courses = conn.execute("""
+        SELECT *
+        FROM courses
+        WHERE course_name LIKE ?
+        OR teacher LIKE ?
+        OR duration LIKE ?
+        OR CAST(fees AS TEXT) LIKE ?
+        ORDER BY course_id ASC
+    """, (
+        f"%{search}%",
+        f"%{search}%",
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    conn.close()
+
+    return announcements, courses

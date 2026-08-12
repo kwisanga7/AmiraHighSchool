@@ -11,6 +11,30 @@ Register Student
 </a>
 
 <hr>
+<div class="search-container">
+
+    <form method="GET" action="/admin/students">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by name, Student ID or phone..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+        {% if search %}
+            <a href="/admin/students" class="btn">
+                Clear
+            </a>
+        {% endif %}
+
+    </form>
+
+</div>
 
 <table border="1">
 
