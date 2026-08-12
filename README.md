@@ -49,9 +49,26 @@ Database Name:
 amirahighschool.db
 ```
 
+## Project Features
+
+✓ Student Registration
+✓ Student Login
+✓ Admin Login
+✓ Student Management
+✓ Announcement Management
+✓ Course Management
+✓ Search Functionality
+✓ Image Uploads
+✓ Responsive Homepage
+
+
 ## Project Status
 
-Project setup and development in progress.
+Project setup and development completed.
+
+Amira High Schol v1.0 ✓✓✓
+Amira High School v1.2  in progress
+
 
 ## Author
 
