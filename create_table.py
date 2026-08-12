@@ -1,4 +1,10 @@
+# =========================
+# Insert password hashing for admin password
+# =========================
+
+from werkzeug.security import generate_password_hash
 import sqlite3
+
 
 # Connect to database
 conn = sqlite3.connect("amirahighschool.db")
@@ -55,7 +61,7 @@ CREATE TABLE IF NOT EXISTS courses (
 # =========================
 
 admin_phone = "0788000000"
-admin_password = "admin123"
+hashed_admin_password = generate_password_hash("admin123")
 
 cursor.execute("""
 SELECT * FROM registration
@@ -86,7 +92,7 @@ if not admin_exists:
         "Kigali",
         "1996-01-01",
         admin_phone,
-        admin_password,
+        hashed_admin_password,
         "admin"
     ))
 

@@ -1,3 +1,15 @@
+# =============================
+# Password Hashing 
+#=============================
+
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+hashed_password = generate_password_hash("admin123")
+
+# =============================
+# Database Connection
+# =============================
+
 import sqlite3
 
 DATABASE = "amirahighschool.db"
@@ -7,6 +19,7 @@ def get_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
+
 
 # ==============================
 # Generate Student ID
@@ -36,15 +49,21 @@ def generate_student_id():
 # Register Student
 # ==============================
 
+
+from werkzeug.security import generate_password_hash
+
 def register_student(
-        full_name,
-        age,
-        sector,
-        date_of_birth,
-        phone,
-        password):
+    full_name,
+    age,
+    sector,
+    date_of_birth,
+    phone,
+    password
+):
 
     student_id = generate_student_id()
+
+    hashed_password = generate_password_hash(password)
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -70,7 +89,7 @@ def register_student(
         sector,
         date_of_birth,
         phone,
-        password,
+        hashed_password,
         "student"
     ))
 
@@ -78,7 +97,6 @@ def register_student(
     conn.close()
 
     return student_id
-
 # ==============================
 # Login function
 # ==============================
@@ -86,20 +104,22 @@ def register_student(
 def login_user(phone, password):
 
     conn = get_connection()
-    cursor = conn.cursor()
 
-    cursor.execute("""
+    user = conn.execute("""
     SELECT *
     FROM registration
     WHERE phone = ?
-    AND password = ?
-    """, (phone, password))
-
-    user = cursor.fetchone()
+    """, (phone,)).fetchone()
 
     conn.close()
 
-    return user
+    if user and check_password_hash(
+            user["password"],
+            password):
+
+        return user
+
+    return None
 
 # ==============================
 # Get all announcements
